@@ -1,0 +1,7599 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Schedulos — Tecnologia para negócios que querem evoluir</title>
+
+<meta name="description"
+content="Websites, AI, automação, agendamento, e-commerce e software à medida. A Schedulos transforma problemas de negócio em soluções digitais.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --bg:#f5f5f1;
+    --surface:#ffffff;
+    --surface-2:#ecece7;
+
+    --black:#080808;
+    --black-2:#101010;
+    --black-3:#171717;
+
+    --text:#111111;
+    --muted:#73736e;
+    --muted-dark:#4f4f4b;
+
+    --white:#f8f8f5;
+
+    --accent:#b9f34b;
+    --accent-soft:#e9f8c9;
+
+    --blue:#526cff;
+
+    --line:#deded8;
+    --line-dark:rgba(255,255,255,.11);
+
+    --radius:20px;
+    --radius-sm:11px;
+
+    --max:1320px;
+
+    --ease:cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+body.locked{
+    overflow:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+::selection{
+    background:var(--accent);
+    color:#000;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.container{
+    width:min(var(--max),calc(100% - 70px));
+    margin:auto;
+}
+
+.section{
+    padding:150px 0;
+}
+
+.dark{
+    background:var(--black);
+    color:var(--white);
+}
+
+.dark .muted{
+    color:#73736e;
+}
+
+.eyebrow{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    font-size:10px;
+    font-weight:700;
+
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    color:#777;
+
+    margin-bottom:24px;
+}
+
+.eyebrow i{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--accent);
+}
+
+.dark .eyebrow{
+    color:#777;
+}
+
+h1,
+h2,
+h3,
+h4{
+    font-family:"Manrope",sans-serif;
+}
+
+.section-heading{
+    font-size:clamp(45px,6vw,78px);
+    line-height:.95;
+    letter-spacing:-5px;
+}
+
+.section-copy{
+    max-width:490px;
+
+    color:var(--muted);
+
+    font-size:14px;
+    line-height:1.8;
+}
+
+.dark .section-copy{
+    color:#777;
+}
+
+.section-header{
+    display:grid;
+
+    grid-template-columns:1.1fr .9fr;
+
+    gap:80px;
+
+    align-items:end;
+
+    margin-bottom:75px;
+}
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+
+    min-height:49px;
+
+    padding:0 20px;
+
+    border-radius:10px;
+
+    font-size:12px;
+    font-weight:700;
+
+    transition:
+        transform .3s var(--ease),
+        background .3s,
+        color .3s,
+        border .3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn-primary{
+    background:var(--black);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:#242424;
+}
+
+.btn-light{
+    background:white;
+    color:#111;
+}
+
+.btn-light:hover{
+    background:var(--accent);
+}
+
+.btn-outline{
+    border:1px solid var(--line);
+    color:#555;
+}
+
+.btn-outline:hover{
+    border-color:#111;
+    color:#111;
+}
+
+.dark .btn-outline{
+    border-color:var(--line-dark);
+    color:#999;
+}
+
+.dark .btn-outline:hover{
+    border-color:#555;
+    color:white;
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+.cursor-glow{
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(185,243,75,.055),
+            transparent 65%
+        );
+
+    z-index:0;
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+
+    z-index:9999;
+
+    pointer-events:none;
+
+    opacity:.018;
+
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav{
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:84px;
+
+    z-index:500;
+
+    transition:.35s var(--ease);
+
+    border-bottom:1px solid transparent;
+}
+
+.nav.scrolled{
+    height:72px;
+
+    background:rgba(245,245,241,.85);
+
+    backdrop-filter:blur(22px);
+
+    border-color:rgba(0,0,0,.08);
+}
+
+.nav.dark-nav.scrolled{
+    background:rgba(8,8,8,.84);
+
+    border-color:var(--line-dark);
+}
+
+.nav-inner{
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    font-family:"Manrope",sans-serif;
+
+    font-weight:800;
+    font-size:18px;
+
+    letter-spacing:-.8px;
+}
+
+.logo-mark{
+    width:31px;
+    height:31px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid #222;
+
+    border-radius:9px;
+
+    font-size:11px;
+}
+
+.logo-mark span{
+    color:#83ad2d;
+}
+
+.dark-nav .logo-mark{
+    border-color:#444;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:31px;
+
+    margin-left:100px;
+}
+
+.nav-link{
+    font-size:12px;
+    color:#666;
+
+    transition:.2s;
+
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.nav-link:hover{
+    color:#111;
+}
+
+.dark-nav .nav-link:hover{
+    color:white;
+}
+
+.chevron{
+    font-size:8px;
+    color:#999;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.nav-cta{
+    background:#111;
+    color:white;
+
+    border-radius:8px;
+
+    padding:11px 17px;
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.dark-nav .nav-cta{
+    background:white;
+    color:#111;
+}
+
+.menu-button{
+    display:none;
+
+    width:40px;
+    height:40px;
+
+    background:transparent;
+
+    border:1px solid var(--line);
+
+    border-radius:9px;
+}
+
+
+/* =========================================================
+   MOBILE NAV PANEL
+========================================================= */
+
+.mobile-nav{
+    position:fixed;
+
+    inset:0;
+
+    z-index:900;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:40px;
+
+    background:var(--bg);
+
+    transform:translateX(100%);
+
+    transition:.4s var(--ease);
+}
+
+.mobile-nav.open{
+    transform:translateX(0);
+}
+
+.close-mobile-nav{
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    width:42px;
+    height:42px;
+
+    display:grid;
+    place-items:center;
+
+    background:white;
+
+    border:1px solid var(--line);
+
+    border-radius:50%;
+
+    font-size:20px;
+}
+
+.mobile-nav-links{
+    display:flex;
+
+    flex-direction:column;
+}
+
+.mobile-nav-link{
+    padding:16px 0;
+
+    border-bottom:1px solid var(--line);
+
+    font-family:"Manrope";
+
+    font-size:26px;
+
+    letter-spacing:-1px;
+}
+
+.mobile-nav-cta{
+    margin-top:28px;
+
+    align-self:flex-start;
+}
+
+@media(min-width:801px){
+
+    .mobile-nav{
+        display:none;
+    }
+
+}
+
+
+/* =========================================================
+   MEGA MENU
+========================================================= */
+
+.mega{
+    position:absolute;
+
+    top:75px;
+    left:50%;
+
+    width:min(1000px,calc(100% - 40px));
+
+    transform:
+        translate(-50%,-12px)
+        scale(.98);
+
+    opacity:0;
+    visibility:hidden;
+
+    padding:25px;
+
+    background:#fff;
+
+    border:1px solid #ddd;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.12);
+
+    transition:.25s var(--ease);
+}
+
+.mega.open{
+    transform:
+        translate(-50%,0)
+        scale(1);
+
+    opacity:1;
+    visibility:visible;
+}
+
+.mega-grid{
+    display:grid;
+
+    grid-template-columns:
+        1.1fr
+        repeat(3,1fr);
+
+    gap:10px;
+}
+
+.mega-main{
+    padding:25px;
+
+    background:#111;
+
+    color:white;
+
+    border-radius:13px;
+}
+
+.mega-main small{
+    color:#777;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.mega-main h3{
+    margin-top:25px;
+
+    font-size:24px;
+
+    letter-spacing:-1px;
+}
+
+.mega-main p{
+    margin-top:12px;
+
+    color:#888;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.mega-main a{
+    display:inline-flex;
+
+    margin-top:24px;
+
+    color:var(--accent);
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.mega-column{
+    padding:15px;
+}
+
+.mega-column h4{
+    margin-bottom:14px;
+
+    font-size:10px;
+
+    color:#999;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.3px;
+}
+
+.mega-column a{
+    display:block;
+
+    padding:7px 0;
+
+    color:#444;
+
+    font-size:11px;
+
+    transition:.2s;
+}
+
+.mega-column a:hover{
+    color:#111;
+
+    transform:translateX(3px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+
+    padding:
+        165px 0
+        100px;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.hero:before{
+    content:"";
+
+    position:absolute;
+
+    width:900px;
+    height:900px;
+
+    right:-400px;
+    top:-300px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(185,243,75,.08),
+            transparent 67%
+        );
+}
+
+.hero-grid{
+    display:grid;
+
+    grid-template-columns:
+        1.05fr
+        .95fr;
+
+    gap:90px;
+
+    align-items:center;
+
+    position:relative;
+}
+
+.hero-kicker{
+    display:inline-flex;
+
+    align-items:center;
+    gap:8px;
+
+    padding:8px 11px;
+
+    border:1px solid #ddd;
+
+    background:rgba(255,255,255,.5);
+
+    border-radius:30px;
+
+    color:#777;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+}
+
+.hero-kicker i{
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#92c436;
+}
+
+.hero h1{
+    margin-top:27px;
+
+    font-size:
+        clamp(57px,7.5vw,104px);
+
+    line-height:.88;
+
+    letter-spacing:-7px;
+
+    max-width:850px;
+}
+
+.hero h1 span{
+    color:#9b9b96;
+}
+
+.hero-description{
+    margin-top:32px;
+
+    max-width:630px;
+
+    color:#6e6e69;
+
+    font-size:16px;
+
+    line-height:1.8;
+}
+
+.hero-actions{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    margin-top:38px;
+}
+
+.hero-note{
+    display:flex;
+
+    gap:17px;
+
+    margin-top:23px;
+
+    color:#999;
+
+    font-size:9px;
+}
+
+.hero-note span{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.hero-note span:before{
+    content:"";
+
+    width:4px;
+    height:4px;
+
+    border-radius:50%;
+
+    background:#aaa;
+}
+
+
+/* =========================================================
+   HERO SYSTEM VISUAL
+========================================================= */
+
+.system{
+    position:relative;
+
+    height:590px;
+}
+
+.system-grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(
+            rgba(0,0,0,.045) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.045) 1px,
+            transparent 1px
+        );
+
+    background-size:42px 42px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 15%,
+            black 85%,
+            transparent
+        );
+}
+
+.system-core{
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:160px;
+    height:160px;
+
+    transform:translate(-50%,-50%);
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:#111;
+
+    color:white;
+
+    font-family:"Manrope";
+
+    font-weight:800;
+
+    font-size:17px;
+
+    letter-spacing:-1px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.18);
+}
+
+.system-core:after{
+    content:"";
+
+    position:absolute;
+
+    inset:-17px;
+
+    border:1px solid #ddd;
+
+    border-radius:50%;
+}
+
+.system-line{
+    position:absolute;
+
+    height:1px;
+
+    background:#d4d4cf;
+
+    transform-origin:left center;
+}
+
+.line1{
+    width:190px;
+
+    left:24%;
+    top:32%;
+
+    transform:rotate(21deg);
+}
+
+.line2{
+    width:185px;
+
+    right:20%;
+    top:34%;
+
+    transform:rotate(158deg);
+}
+
+.line3{
+    width:190px;
+
+    left:25%;
+    bottom:31%;
+
+    transform:rotate(-21deg);
+}
+
+.line4{
+    width:190px;
+
+    right:20%;
+    bottom:31%;
+
+    transform:rotate(-158deg);
+}
+
+.system-node{
+    position:absolute;
+
+    width:150px;
+
+    min-height:100px;
+
+    padding:15px;
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(10px);
+
+    border:1px solid #ddd;
+
+    border-radius:13px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.07);
+
+    transition:.3s;
+}
+
+.system-node:hover{
+    transform:translateY(-5px);
+
+    border-color:#bbb;
+}
+
+.node1{
+    left:2%;
+    top:16%;
+}
+
+.node2{
+    right:2%;
+    top:18%;
+}
+
+.node3{
+    left:4%;
+    bottom:17%;
+}
+
+.node4{
+    right:3%;
+    bottom:18%;
+}
+
+.system-node small{
+    color:#999;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.system-node strong{
+    display:block;
+
+    margin-top:8px;
+
+    font-family:"Manrope";
+
+    font-size:14px;
+}
+
+.system-node p{
+    margin-top:6px;
+
+    color:#777;
+
+    font-size:9px;
+
+    line-height:1.5;
+}
+
+.node-status{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    margin-top:10px;
+
+    color:#77a928;
+
+    font-size:8px;
+}
+
+.node-status:before{
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    background:#8ec53a;
+
+    border-radius:50%;
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+    overflow:hidden;
+
+    background:#111;
+
+    color:#777;
+
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
+}
+
+.marquee-track{
+    display:flex;
+
+    width:max-content;
+
+    animation:
+        marquee 25s linear infinite;
+}
+
+.marquee-item{
+    padding:23px 35px;
+
+    display:flex;
+    align-items:center;
+    gap:35px;
+
+    font-family:"Manrope";
+
+    font-size:11px;
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    white-space:nowrap;
+}
+
+.marquee-item:after{
+    content:"✦";
+
+    color:var(--accent);
+}
+
+@keyframes marquee{
+
+    to{
+        transform:translateX(-50%);
+    }
+
+}
+
+
+/* =========================================================
+   WHAT WE DO
+========================================================= */
+
+.what-grid{
+    display:grid;
+
+    grid-template-columns:
+        .9fr
+        1.1fr;
+
+    gap:100px;
+
+    align-items:start;
+}
+
+.what-statement{
+    position:sticky;
+
+    top:130px;
+}
+
+.what-statement h2{
+    font-size:
+        clamp(43px,5vw,67px);
+
+    line-height:.98;
+
+    letter-spacing:-4px;
+}
+
+.what-statement h2 span{
+    color:#999;
+}
+
+.what-statement p{
+    margin-top:25px;
+
+    color:#777;
+
+    max-width:430px;
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+.capability-list{
+    border-top:1px solid var(--line);
+}
+
+.capability{
+    padding:32px 0;
+
+    display:grid;
+
+    grid-template-columns:60px 1fr 30px;
+
+    gap:20px;
+
+    border-bottom:1px solid var(--line);
+
+    transition:.3s;
+}
+
+.capability:hover{
+    padding-left:12px;
+}
+
+.capability-num{
+    color:#aaa;
+
+    font-size:10px;
+}
+
+.capability h3{
+    font-size:21px;
+
+    letter-spacing:-.7px;
+}
+
+.capability p{
+    margin-top:8px;
+
+    max-width:530px;
+
+    color:#777;
+
+    font-size:12px;
+
+    line-height:1.65;
+}
+
+.capability-arrow{
+    color:#aaa;
+
+    transition:.3s;
+}
+
+.capability:hover .capability-arrow{
+    color:#111;
+
+    transform:translate(4px,-4px);
+}
+
+
+/* =========================================================
+   SERVICES MATRIX
+========================================================= */
+
+.services-section{
+    background:#111;
+    color:white;
+}
+
+.service-matrix{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:1px;
+
+    background:#292929;
+
+    border:1px solid #292929;
+}
+
+.service-card{
+    min-height:340px;
+
+    padding:32px;
+
+    background:#111;
+
+    position:relative;
+
+    transition:.35s;
+}
+
+.service-card:hover{
+    background:#171717;
+}
+
+.service-card-number{
+    color:#555;
+
+    font-size:10px;
+}
+
+.service-card-icon{
+    position:absolute;
+
+    top:30px;
+    right:30px;
+
+    width:36px;
+    height:36px;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid #292929;
+
+    border-radius:10px;
+
+    color:var(--accent);
+
+    font-size:12px;
+}
+
+.service-card h3{
+    margin-top:110px;
+
+    font-size:23px;
+
+    letter-spacing:-1px;
+}
+
+.service-card p{
+    margin-top:12px;
+
+    color:#73736e;
+
+    font-size:12px;
+
+    line-height:1.7;
+}
+
+.service-tags{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:5px;
+
+    margin-top:20px;
+}
+
+.service-tags span{
+    padding:6px 8px;
+
+    border:1px solid #292929;
+
+    border-radius:20px;
+
+    color:#666;
+
+    font-size:8px;
+}
+
+
+/* =========================================================
+   PORTFOLIO
+========================================================= */
+
+.portfolio{
+    background:#f5f5f1;
+}
+
+.portfolio-grid{
+    display:grid;
+
+    grid-template-columns:
+        1.25fr
+        .75fr;
+
+    gap:14px;
+}
+
+.project{
+    position:relative;
+
+    display:flex;
+    flex-direction:column;
+
+    min-height:550px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#deded8;
+
+    cursor:pointer;
+
+    transition:
+        transform .4s var(--ease),
+        box-shadow .4s var(--ease);
+}
+
+.project:hover{
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 30px 60px rgba(0,0,0,.1);
+}
+
+.project:nth-child(2){
+    min-height:270px;
+}
+
+.project:nth-child(3){
+    min-height:270px;
+}
+
+.project:nth-child(4){
+    grid-column:2;
+
+    min-height:270px;
+}
+
+.project-visual{
+    position:relative;
+
+    flex:1 1 auto;
+    min-height:0;
+
+    padding:24px 24px 0;
+
+    overflow:hidden;
+}
+
+.project-ui{
+    width:100%;
+    height:100%;
+
+    border-radius:13px 13px 0 0;
+
+    background:#111;
+
+    padding:20px;
+
+    color:white;
+
+    overflow:hidden;
+
+    transition:.5s var(--ease);
+}
+
+.project:hover .project-ui{
+    transform:
+        scale(1.025)
+        translateY(-5px);
+}
+
+.ui-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding-bottom:13px;
+
+    border-bottom:1px solid #2c2c2c;
+
+    color:#777;
+
+    font-size:8px;
+}
+
+.ui-main-title{
+    margin-top:35px;
+
+    font-family:"Manrope";
+
+    font-size:32px;
+
+    letter-spacing:-2px;
+}
+
+.ui-lines{
+    display:grid;
+
+    gap:9px;
+
+    margin-top:25px;
+}
+
+.ui-line{
+    height:8px;
+
+    width:80%;
+
+    background:#252525;
+
+    border-radius:5px;
+}
+
+.ui-line:nth-child(2){
+    width:62%;
+}
+
+.ui-line:nth-child(3){
+    width:42%;
+}
+
+.ui-chart{
+    position:absolute;
+
+    left:25px;
+    right:25px;
+    bottom:25px;
+
+    height:120px;
+}
+
+.ui-chart svg{
+    width:100%;
+    height:100%;
+}
+
+.project-overlay{
+    position:relative;
+
+    flex:0 0 auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:16px;
+
+    margin:0 24px;
+
+    padding:18px 0 24px;
+
+    border-top:1px solid rgba(0,0,0,.08);
+
+    z-index:2;
+}
+
+.project-info{
+    color:#111;
+}
+
+.project-info small{
+    font-size:8px;
+
+    color:#8f8f8a;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+}
+
+.project-info h3{
+    margin-top:6px;
+
+    font-size:21px;
+}
+
+.project-link{
+    flex-shrink:0;
+
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    background:#111;
+
+    color:white;
+
+    border-radius:50%;
+
+    transition:.3s var(--ease);
+}
+
+.project:hover .project-link{
+    background:var(--accent);
+
+    color:#111;
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* =========================================================
+   CASE STUDIES
+========================================================= */
+
+.cases{
+    background:#111;
+    color:white;
+}
+
+.case-list{
+    border-top:1px solid #292929;
+}
+
+.case{
+    padding:32px 0;
+
+    border-bottom:1px solid #292929;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.case:hover{
+    padding-left:12px;
+}
+
+.case-row{
+    display:grid;
+
+    grid-template-columns:
+        70px
+        1fr
+        1.1fr
+        120px
+        24px;
+
+    align-items:center;
+
+    gap:25px;
+}
+
+.case-toggle{
+    justify-self:end;
+
+    font-size:20px;
+
+    color:#555;
+
+    transition:.3s var(--ease);
+}
+
+.case.open .case-toggle{
+    transform:rotate(45deg);
+
+    color:var(--accent);
+}
+
+.case-detail{
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:.4s var(--ease);
+}
+
+.case-detail p{
+    max-width:640px;
+
+    margin:20px 0 0 95px;
+
+    color:#888;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+.case.open .case-detail{
+    max-height:200px;
+}
+
+.case-number{
+    color:#555;
+
+    font-size:10px;
+}
+
+.case-type{
+    color:#777;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.3px;
+}
+
+.case h3{
+    margin-top:8px;
+
+    font-size:22px;
+
+    letter-spacing:-.7px;
+}
+
+.case-description{
+    color:#73736e;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.case-result{
+    text-align:right;
+}
+
+.case-result strong{
+    display:block;
+
+    color:var(--accent);
+
+    font-family:"Manrope";
+
+    font-size:25px;
+}
+
+.case-result span{
+    color:#555;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+}
+
+
+/* =========================================================
+   INDUSTRIES
+========================================================= */
+
+.industries{
+    background:#ecece7;
+}
+
+.industry-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:8px;
+}
+
+.industry{
+    min-height:280px;
+
+    padding:24px;
+
+    background:#f7f7f3;
+
+    border:1px solid #ddd;
+
+    border-radius:15px;
+
+    transition:.3s;
+}
+
+.industry:hover{
+    background:white;
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.06);
+}
+
+.industry-num{
+    color:#aaa;
+
+    font-size:9px;
+}
+
+.industry-icon{
+    margin-top:60px;
+
+    font-size:22px;
+}
+
+.industry h3{
+    margin-top:16px;
+
+    font-size:17px;
+
+    letter-spacing:-.5px;
+}
+
+.industry p{
+    margin-top:8px;
+
+    color:#777;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   PRICING
+========================================================= */
+
+.pricing{
+    background:#111;
+    color:white;
+}
+
+.pricing-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+}
+
+.price-card{
+    position:relative;
+
+    padding:30px;
+
+    min-height:480px;
+
+    background:#151515;
+
+    border:1px solid #252525;
+
+    border-radius:17px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.35s;
+}
+
+.price-card:hover{
+    transform:translateY(-7px);
+
+    border-color:#3a3a3a;
+}
+
+.price-card.featured{
+    border-color:
+        rgba(185,243,75,.38);
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #121212
+        );
+}
+
+.price-badge{
+    position:absolute;
+
+    top:17px;
+    right:17px;
+
+    padding:6px 8px;
+
+    background:var(--accent);
+
+    color:#111;
+
+    border-radius:20px;
+
+    font-size:7px;
+
+    font-weight:800;
+
+    letter-spacing:.8px;
+}
+
+.price-eyebrow{
+    color:#666;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+}
+
+.price-card h3{
+    margin-top:20px;
+
+    font-size:27px;
+
+    letter-spacing:-1px;
+}
+
+.price-card > p{
+    margin-top:10px;
+
+    min-height:58px;
+
+    color:#73736e;
+
+    font-size:11px;
+
+    line-height:1.65;
+}
+
+.price-value{
+    margin-top:24px;
+
+    font-family:"Manrope";
+
+    font-size:38px;
+
+    letter-spacing:-2px;
+}
+
+.price-value span{
+    color:#666;
+
+    font-family:"DM Sans";
+
+    font-size:9px;
+
+    letter-spacing:0;
+}
+
+.price-divider{
+    height:1px;
+
+    background:#292929;
+
+    margin:24px 0;
+}
+
+.price-list{
+    display:grid;
+
+    gap:11px;
+}
+
+.price-list li{
+    list-style:none;
+
+    color:#888;
+
+    font-size:10px;
+
+    display:flex;
+
+    gap:8px;
+}
+
+.price-list li:before{
+    content:"✓";
+
+    color:var(--accent);
+}
+
+.price-card .btn{
+    width:100%;
+
+    margin-top:auto;
+}
+
+
+/* =========================================================
+   OTHER PRICING
+========================================================= */
+
+.other-pricing{
+    margin-top:10px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:10px;
+}
+
+.other-price{
+    padding:22px;
+
+    background:#0d0d0d;
+
+    border:1px solid #252525;
+
+    border-radius:14px;
+}
+
+.other-price small{
+    color:#666;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.3px;
+}
+
+.other-price h4{
+    margin-top:10px;
+
+    font-size:16px;
+}
+
+.other-price strong{
+    display:block;
+
+    margin-top:18px;
+
+    color:var(--accent);
+
+    font-family:"Manrope";
+
+    font-size:18px;
+}
+
+.other-price p{
+    margin-top:6px;
+
+    color:#555;
+
+    font-size:9px;
+}
+
+
+/* =========================================================
+   CONFIGURATOR
+========================================================= */
+
+.configurator{
+    background:#f5f5f1;
+}
+
+.config-grid{
+    display:grid;
+
+    grid-template-columns:
+        .75fr
+        1.25fr;
+
+    gap:90px;
+
+    align-items:start;
+}
+
+.config-copy h2{
+    font-size:
+        clamp(44px,5vw,66px);
+
+    line-height:.98;
+
+    letter-spacing:-4px;
+}
+
+.config-copy p{
+    margin-top:22px;
+
+    max-width:450px;
+
+    color:#777;
+
+    font-size:14px;
+
+    line-height:1.75;
+}
+
+.config-box{
+    background:white;
+
+    border:1px solid #ddd;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.06);
+}
+
+.config-step{
+    padding-bottom:25px;
+
+    margin-bottom:25px;
+
+    border-bottom:1px solid #eee;
+}
+
+.config-step:last-child{
+    margin-bottom:0;
+    border-bottom:0;
+}
+
+.config-label{
+    margin-bottom:13px;
+
+    font-family:"Manrope";
+
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.option-grid{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+}
+
+.option{
+    padding:10px 13px;
+
+    border:1px solid #ddd;
+
+    border-radius:9px;
+
+    background:white;
+
+    color:#666;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.option:hover,
+.option.active{
+    background:#111;
+
+    border-color:#111;
+
+    color:white;
+}
+
+.config-result{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding-top:20px;
+}
+
+.config-result-text small{
+    color:#999;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.config-result-text strong{
+    display:block;
+
+    margin-top:5px;
+
+    font-family:"Manrope";
+
+    font-size:25px;
+}
+
+.config-result-text span{
+    display:block;
+
+    margin-top:5px;
+
+    color:#777;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   AUTOMATION CALCULATOR
+========================================================= */
+
+.calculator{
+    background:#e9e9e4;
+}
+
+.calc-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:100px;
+
+    align-items:center;
+}
+
+.calc-copy h2{
+    font-size:
+        clamp(43px,5vw,66px);
+
+    line-height:.98;
+
+    letter-spacing:-4px;
+}
+
+.calc-copy p{
+    margin-top:22px;
+
+    color:#777;
+
+    max-width:480px;
+
+    font-size:14px;
+
+    line-height:1.8;
+}
+
+.calc-box{
+    padding:32px;
+
+    background:white;
+
+    border:1px solid #ddd;
+
+    border-radius:20px;
+}
+
+.range-row{
+    margin-bottom:28px;
+}
+
+.range-head{
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.range-head span{
+    color:#888;
+}
+
+input[type="range"]{
+    width:100%;
+
+    accent-color:#111;
+
+    cursor:pointer;
+}
+
+.calc-results{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:8px;
+
+    margin-top:30px;
+}
+
+.calc-result{
+    padding:18px;
+
+    border-radius:12px;
+
+    background:#f0f0eb;
+}
+
+.calc-result.dark-result{
+    background:#111;
+
+    color:white;
+}
+
+.calc-result small{
+    color:#888;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.calc-result strong{
+    display:block;
+
+    margin-top:7px;
+
+    font-family:"Manrope";
+
+    font-size:25px;
+}
+
+.dark-result strong{
+    color:var(--accent);
+}
+
+
+/* =========================================================
+   PROCESS
+========================================================= */
+
+.process{
+    background:#111;
+
+    color:white;
+}
+
+.process-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    border-top:1px solid #292929;
+}
+
+.process-item{
+    min-height:330px;
+
+    padding:28px;
+
+    border-right:1px solid #292929;
+}
+
+.process-item:first-child{
+    border-left:1px solid #292929;
+}
+
+.process-num{
+    color:var(--accent);
+
+    font-size:9px;
+
+    letter-spacing:1px;
+}
+
+.process-item h3{
+    margin-top:110px;
+
+    font-size:20px;
+}
+
+.process-item p{
+    margin-top:10px;
+
+    color:#666;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-wrap{
+    max-width:900px;
+
+    margin:auto;
+}
+
+.faq-item{
+    border-top:1px solid var(--line);
+
+    transition:.3s var(--ease);
+}
+
+.faq-item:hover{
+    padding-left:10px;
+}
+
+.faq-item:last-child{
+    border-bottom:1px solid var(--line);
+}
+
+.faq-question{
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        34px
+        1fr
+        30px;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:27px 0;
+
+    background:transparent;
+    border:0;
+
+    color:#333;
+
+    text-align:left;
+    cursor:pointer;
+
+    font-family:"Manrope";
+
+    font-size:16px;
+
+    letter-spacing:-.2px;
+
+    transition:color .3s;
+}
+
+.faq-question:focus-visible{
+    outline:2px solid var(--accent);
+
+    outline-offset:-2px;
+
+    border-radius:6px;
+}
+
+.faq-item:hover .faq-question,
+.faq-item.open .faq-question{
+    color:#111;
+}
+
+.faq-item.open .faq-question{
+    font-weight:600;
+}
+
+.faq-num{
+    color:#bbb;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    transition:color .3s;
+}
+
+.faq-item.open .faq-num{
+    color:#83ad2d;
+}
+
+.faq-plus{
+    width:30px;
+    height:30px;
+
+    flex-shrink:0;
+
+    display:grid;
+    place-items:center;
+
+    border:1px solid var(--line);
+
+    border-radius:50%;
+
+    color:#999;
+
+    font-size:15px;
+
+    transition:.3s var(--ease);
+}
+
+.faq-item:hover .faq-plus{
+    border-color:#111;
+
+    color:#111;
+}
+
+.faq-answer{
+    max-height:0;
+
+    overflow:hidden;
+
+    transition:max-height .4s var(--ease);
+}
+
+.faq-answer p{
+    max-width:680px;
+
+    margin-left:54px;
+
+    padding-bottom:27px;
+
+    color:#777;
+
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+.faq-item.open .faq-plus{
+    background:#111;
+
+    border-color:#111;
+
+    color:var(--accent);
+
+    transform:rotate(45deg);
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+    background:#111;
+
+    color:white;
+
+    text-align:center;
+
+    padding:170px 0;
+}
+
+.cta h2{
+    max-width:1050px;
+
+    margin:auto;
+
+    font-size:
+        clamp(52px,7vw,95px);
+
+    line-height:.9;
+
+    letter-spacing:-6px;
+}
+
+.cta h2 span{
+    color:#555;
+}
+
+.cta p{
+    max-width:540px;
+
+    margin:27px auto 35px;
+
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:#f5f5f1;
+}
+
+.contact-grid{
+    display:grid;
+
+    grid-template-columns:
+        .8fr
+        1.2fr;
+
+    gap:100px;
+}
+
+.contact-copy h2{
+    font-size:
+        clamp(45px,5vw,68px);
+
+    line-height:.96;
+
+    letter-spacing:-4px;
+}
+
+.contact-copy p{
+    margin-top:22px;
+
+    max-width:450px;
+
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+.contact-form{
+    display:grid;
+
+    gap:18px;
+}
+
+.form-row{
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap:18px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea{
+    width:100%;
+
+    padding:15px 0;
+
+    border:0;
+
+    border-bottom:1px solid #ccc;
+
+    background:transparent;
+
+    color:#111;
+
+    outline:none;
+
+    font-size:12px;
+}
+
+.contact-form textarea{
+    min-height:100px;
+
+    resize:vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus{
+    border-color:#111;
+}
+
+.contact-form button{
+    margin-top:8px;
+
+    min-height:50px;
+
+    background:#111;
+
+    color:white;
+
+    border:0;
+
+    border-radius:9px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.contact-form button:hover{
+    background:#2a2a2a;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#050505;
+
+    color:white;
+
+    padding:55px 0 30px;
+}
+
+.footer-top{
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:60px;
+
+    padding-bottom:45px;
+
+    border-bottom:1px solid #202020;
+}
+
+.footer-brand{
+    max-width:350px;
+}
+
+.footer-brand p{
+    margin-top:15px;
+
+    color:#555;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+.footer-columns{
+    display:flex;
+
+    gap:75px;
+}
+
+.footer-col{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.footer-col small{
+    color:#444;
+
+    margin-bottom:6px;
+
+    font-size:8px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.footer-col a{
+    color:#666;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.footer-col a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    display:flex;
+
+    justify-content:space-between;
+
+    padding-top:25px;
+
+    color:#444;
+
+    font-size:9px;
+}
+
+
+/* =========================================================
+   SERVICE MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+
+    inset:0;
+
+    z-index:2000;
+
+    background:rgba(0,0,0,.65);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.modal.open{
+    opacity:1;
+
+    visibility:visible;
+}
+
+.modal-box{
+    width:min(900px,100%);
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:#f5f5f1;
+
+    color:#111;
+
+    border-radius:20px;
+
+    padding:42px;
+
+    transform:
+        translateY(25px)
+        scale(.97);
+
+    transition:.4s var(--ease);
+}
+
+.modal.open .modal-box{
+    transform:none;
+}
+
+.modal-top{
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:30px;
+}
+
+.modal-top h2{
+    font-size:42px;
+
+    letter-spacing:-2px;
+}
+
+.close-modal{
+    width:38px;
+    height:38px;
+
+    border:1px solid #ddd;
+
+    background:white;
+
+    border-radius:50%;
+
+    font-size:18px;
+}
+
+.modal-description{
+    max-width:650px;
+
+    margin-top:20px;
+
+    color:#777;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+.modal-services{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:8px;
+
+    margin-top:30px;
+}
+
+.modal-service{
+    padding:18px;
+
+    background:white;
+
+    border:1px solid #ddd;
+
+    border-radius:11px;
+}
+
+.modal-service strong{
+    font-family:"Manrope";
+
+    font-size:12px;
+}
+
+.modal-service p{
+    margin-top:5px;
+
+    color:#777;
+
+    font-size:10px;
+
+    line-height:1.5;
+}
+
+.modal-bottom{
+    margin-top:30px;
+
+    padding-top:25px;
+
+    border-top:1px solid #ddd;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(25px);
+
+    transition:
+        opacity .8s var(--ease),
+        transform .8s var(--ease);
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .nav-links{
+        margin-left:0;
+
+        gap:17px;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+
+        gap:50px;
+    }
+
+    .system{
+        max-width:750px;
+
+        margin:auto;
+    }
+
+    .service-matrix{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .pricing-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .other-pricing{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .industry-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .process-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .process-item:nth-child(4),
+    .process-item:nth-child(5){
+        border-top:1px solid #292929;
+    }
+}
+
+
+@media(max-width:800px){
+
+    .container{
+        width:calc(100% - 34px);
+    }
+
+    .section{
+        padding:100px 0;
+    }
+
+    .nav{
+        height:70px;
+    }
+
+    .nav-links,
+    .nav-actions .nav-cta{
+        display:none;
+    }
+
+    .menu-button{
+        display:block;
+    }
+
+    .mega{
+        display:none;
+    }
+
+    .section-header{
+        grid-template-columns:1fr;
+
+        gap:25px;
+
+        margin-bottom:50px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero h1{
+        font-size:53px;
+
+        letter-spacing:-4px;
+    }
+
+    .hero-description{
+        font-size:14px;
+    }
+
+    .system{
+        height:450px;
+    }
+
+    .system-core{
+        width:125px;
+        height:125px;
+
+        font-size:14px;
+    }
+
+    .system-node{
+        width:125px;
+
+        padding:12px;
+    }
+
+    .node1{
+        left:0;
+    }
+
+    .node2{
+        right:0;
+    }
+
+    .node3{
+        left:0;
+    }
+
+    .node4{
+        right:0;
+    }
+
+    .what-grid{
+        grid-template-columns:1fr;
+
+        gap:50px;
+    }
+
+    .what-statement{
+        position:static;
+    }
+
+    .service-matrix{
+        grid-template-columns:1fr;
+    }
+
+    .portfolio-grid{
+        grid-template-columns:1fr;
+    }
+
+    .project,
+    .project:nth-child(2),
+    .project:nth-child(3),
+    .project:nth-child(4){
+        min-height:390px;
+
+        grid-column:auto;
+    }
+
+    .case-row{
+        grid-template-columns:
+            45px
+            1fr
+            70px
+            20px;
+    }
+
+    .case-description{
+        display:none;
+    }
+
+    .case-detail p{
+        margin-left:0;
+    }
+
+    .industry-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .pricing-grid{
+        grid-template-columns:1fr;
+    }
+
+    .other-pricing{
+        grid-template-columns:1fr;
+    }
+
+    .config-grid,
+    .calc-grid,
+    .contact-grid{
+        grid-template-columns:1fr;
+
+        gap:50px;
+    }
+
+    .process-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .process-item{
+        border-bottom:1px solid #292929;
+    }
+
+    .process-item:nth-child(3){
+        border-left:1px solid #292929;
+    }
+
+    .footer-top{
+        flex-direction:column;
+    }
+
+    .footer-columns{
+        flex-wrap:wrap;
+
+        gap:35px;
+    }
+}
+
+
+@media(max-width:520px){
+
+    .faq-question{
+        grid-template-columns:
+            22px
+            1fr
+            26px;
+
+        gap:12px;
+    }
+
+    .faq-answer p{
+        margin-left:34px;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .hero-actions .btn{
+        width:100%;
+    }
+
+    .system{
+        height:390px;
+    }
+
+    .system-node{
+        width:105px;
+    }
+
+    .system-node p{
+        display:none;
+    }
+
+    .system-core{
+        width:105px;
+        height:105px;
+    }
+
+    .line1,
+    .line2,
+    .line3,
+    .line4{
+        width:120px;
+    }
+
+    .industry-grid{
+        grid-template-columns:1fr;
+    }
+
+    .process-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-row{
+        grid-template-columns:1fr;
+    }
+
+    .calc-results{
+        grid-template-columns:1fr;
+    }
+
+    .config-result{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .modal-box{
+        padding:25px;
+    }
+
+    .modal-top h2{
+        font-size:32px;
+    }
+
+    .modal-services{
+        grid-template-columns:1fr;
+    }
+
+    .modal-bottom{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .footer-columns{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+
+        gap:10px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="noise"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="nav" id="nav">
+
+<div class="container nav-inner">
+
+<a href="#" class="logo">
+
+<div class="logo-mark">
+    <span>S</span>
+</div>
+
+SCHEDULOS
+
+</a>
+
+
+<div class="nav-links">
+
+<a href="#solutions" class="nav-link">
+    Soluções
+</a>
+
+<button class="nav-link"
+id="servicesTrigger"
+style="background:none;border:0;">
+    Serviços
+    <span class="chevron">▼</span>
+</button>
+
+<a href="#portfolio" class="nav-link">
+    Projetos
+</a>
+
+<a href="#industries" class="nav-link">
+    Negócios
+</a>
+
+<a href="#pricing" class="nav-link">
+    Investimento
+</a>
+
+</div>
+
+
+<div class="nav-actions">
+
+<a href="#contact" class="nav-cta">
+    Falar connosco →
+</a>
+
+<button class="menu-button" id="mobileMenu">
+    ☰
+</button>
+
+</div>
+
+</div>
+
+
+<!-- MEGA MENU -->
+
+<div class="mega" id="megaMenu">
+
+<div class="mega-grid">
+
+
+<div class="mega-main">
+
+<small>
+    Schedulos Digital
+</small>
+
+<h3>
+    Tecnologia pensada para o negócio.
+</h3>
+
+<p>
+    Escolha apenas o que precisa ou combine
+    várias soluções para criar uma infraestrutura
+    digital completa.
+</p>
+
+<a href="#contact">
+    Descobrir solução →
+</a>
+
+</div>
+
+
+<div class="mega-column">
+
+<h4>
+    Web
+</h4>
+
+<a href="#" data-service="website">
+    Websites
+</a>
+
+<a href="#" data-service="landing">
+    Landing Pages
+</a>
+
+<a href="#" data-service="ecommerce">
+    E-commerce
+</a>
+
+<a href="#" data-service="custom">
+    Web Apps
+</a>
+
+</div>
+
+
+<div class="mega-column">
+
+<h4>
+    Growth
+</h4>
+
+<a href="#" data-service="booking">
+    Booking
+</a>
+
+<a href="#" data-service="ai">
+    AI & Chatbots
+</a>
+
+<a href="#" data-service="automation">
+    Automação
+</a>
+
+<a href="#" data-service="crm">
+    CRM & Leads
+</a>
+
+</div>
+
+
+<div class="mega-column">
+
+<h4>
+    Technology
+</h4>
+
+<a href="#" data-service="dashboard">
+    Dashboards
+</a>
+
+<a href="#" data-service="integration">
+    Integrações
+</a>
+
+<a href="#" data-service="custom">
+    Software
+</a>
+
+<a href="#" data-service="custom">
+    SaaS
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</nav>
+
+
+<!-- MOBILE NAV PANEL -->
+
+<div class="mobile-nav" id="mobileNav">
+
+<button class="close-mobile-nav" id="closeMobileNav">
+    ×
+</button>
+
+<div class="mobile-nav-links">
+
+<a href="#solutions" class="mobile-nav-link">
+    Soluções
+</a>
+
+<a href="#services" class="mobile-nav-link">
+    Serviços
+</a>
+
+<a href="#portfolio" class="mobile-nav-link">
+    Projetos
+</a>
+
+<a href="#industries" class="mobile-nav-link">
+    Negócios
+</a>
+
+<a href="#pricing" class="mobile-nav-link">
+    Investimento
+</a>
+
+</div>
+
+<a href="#contact" class="btn btn-primary mobile-nav-cta">
+    Falar connosco →
+</a>
+
+</div>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<header class="hero">
+
+<div class="container hero-grid">
+
+
+<div class="reveal">
+
+<div class="hero-kicker">
+
+<i></i>
+
+Digital infrastructure for modern businesses
+
+</div>
+
+
+<h1>
+
+Transformamos
+<span>
+problemas
+</span>
+em tecnologia.
+
+</h1>
+
+
+<p class="hero-description">
+
+Websites, inteligência artificial, automação,
+agendamento, e-commerce e software à medida.
+A Schedulos desenha e desenvolve soluções digitais
+pensadas em função do seu negócio — não da ferramenta.
+
+</p>
+
+
+<div class="hero-actions">
+
+<a href="#configurator"
+class="btn btn-primary">
+    Descobrir a solução certa →
+</a>
+
+<a href="#portfolio"
+class="btn btn-outline">
+    Ver o que fazemos
+</a>
+
+</div>
+
+
+<div class="hero-note">
+
+<span>
+    Estratégia
+</span>
+
+<span>
+    Design
+</span>
+
+<span>
+    Development
+</span>
+
+<span>
+    AI
+</span>
+
+</div>
+
+</div>
+
+
+
+<!-- SYSTEM VISUAL -->
+
+<div class="system reveal">
+
+<div class="system-grid"></div>
+
+
+<div class="system-line line1"></div>
+<div class="system-line line2"></div>
+<div class="system-line line3"></div>
+<div class="system-line line4"></div>
+
+
+<div class="system-core">
+    SCHEDULOS
+</div>
+
+
+<div class="system-node node1">
+
+<small>
+    Web
+</small>
+
+<strong>
+    Digital presence
+</strong>
+
+<p>
+    Websites e experiências digitais.
+</p>
+
+<div class="node-status">
+    ACTIVE
+</div>
+
+</div>
+
+
+<div class="system-node node2">
+
+<small>
+    AI
+</small>
+
+<strong>
+    Intelligent layer
+</strong>
+
+<p>
+    Assistentes e automação.
+</p>
+
+<div class="node-status">
+    ACTIVE
+</div>
+
+</div>
+
+
+<div class="system-node node3">
+
+<small>
+    Growth
+</small>
+
+<strong>
+    Conversion
+</strong>
+
+<p>
+    Leads, booking e CRM.
+</p>
+
+<div class="node-status">
+    ACTIVE
+</div>
+
+</div>
+
+
+<div class="system-node node4">
+
+<small>
+    Technology
+</small>
+
+<strong>
+    Custom systems
+</strong>
+
+<p>
+    Software e integrações.
+</p>
+
+<div class="node-status">
+    ACTIVE
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MARQUEE
+========================================================= -->
+
+<div class="marquee">
+
+<div class="marquee-track">
+
+<div class="marquee-item">
+    Websites
+</div>
+
+<div class="marquee-item">
+    AI
+</div>
+
+<div class="marquee-item">
+    Automation
+</div>
+
+<div class="marquee-item">
+    Booking
+</div>
+
+<div class="marquee-item">
+    E-commerce
+</div>
+
+<div class="marquee-item">
+    Software
+</div>
+
+<div class="marquee-item">
+    Dashboards
+</div>
+
+<div class="marquee-item">
+    Websites
+</div>
+
+<div class="marquee-item">
+    AI
+</div>
+
+<div class="marquee-item">
+    Automation
+</div>
+
+<div class="marquee-item">
+    Booking
+</div>
+
+<div class="marquee-item">
+    E-commerce
+</div>
+
+<div class="marquee-item">
+    Software
+</div>
+
+<div class="marquee-item">
+    Dashboards
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- =========================================================
+     WHAT WE DO
+========================================================= -->
+
+<section class="section" id="solutions">
+
+<div class="container what-grid">
+
+
+<div class="what-statement reveal">
+
+<div class="eyebrow">
+    01 / What we do
+</div>
+
+<h2>
+
+Uma infraestrutura
+digital <span>pensada
+para o seu negócio.</span>
+
+</h2>
+
+<p>
+
+Não acreditamos que todas as empresas
+precisem da mesma tecnologia.
+
+Primeiro percebemos o problema.
+Depois desenhamos a solução.
+
+</p>
+
+</div>
+
+
+
+<div class="capability-list reveal">
+
+
+<div class="capability">
+
+<div class="capability-num">
+    01
+</div>
+
+<div>
+
+<h3>
+    Presença digital
+</h3>
+
+<p>
+    Criamos websites e landing pages que
+    comunicam autoridade, posicionamento
+    e transformam visitas em oportunidades.
+</p>
+
+</div>
+
+<div class="capability-arrow">
+    ↗
+</div>
+
+</div>
+
+
+
+<div class="capability">
+
+<div class="capability-num">
+    02
+</div>
+
+<div>
+
+<h3>
+    Aquisição & conversão
+</h3>
+
+<p>
+    Estruturamos experiências para captar,
+    qualificar e converter potenciais clientes.
+</p>
+
+</div>
+
+<div class="capability-arrow">
+    ↗
+</div>
+
+</div>
+
+
+
+<div class="capability">
+
+<div class="capability-num">
+    03
+</div>
+
+<div>
+
+<h3>
+    Inteligência artificial
+</h3>
+
+<p>
+    Criamos AI assistants e chatbots capazes
+    de responder, qualificar, encaminhar
+    e automatizar interações.
+</p>
+
+</div>
+
+<div class="capability-arrow">
+    ↗
+</div>
+
+</div>
+
+
+
+<div class="capability">
+
+<div class="capability-num">
+    04
+</div>
+
+<div>
+
+<h3>
+    Operações & automação
+</h3>
+
+<p>
+    Ligamos sistemas e processos para eliminar
+    trabalho repetitivo e tornar a operação
+    mais eficiente.
+</p>
+
+</div>
+
+<div class="capability-arrow">
+    ↗
+</div>
+
+</div>
+
+
+
+<div class="capability">
+
+<div class="capability-num">
+    05
+</div>
+
+<div>
+
+<h3>
+    Software personalizado
+</h3>
+
+<p>
+    Desenvolvemos ferramentas próprias quando
+    uma solução standard já não chega.
+</p>
+
+</div>
+
+<div class="capability-arrow">
+    ↗
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section class="section services-section" id="services">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    <i></i>
+    02 / Services
+</div>
+
+<h2 class="section-heading">
+
+Tudo o que o seu
+negócio precisa
+para evoluir digitalmente.
+
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Podemos entrar num projeto pela porta da frente —
+um website, uma landing page ou um chatbot —
+e construir progressivamente uma infraestrutura
+digital completa.
+
+</p>
+
+</div>
+
+
+
+<div class="service-matrix reveal">
+
+
+<div class="service-card"
+data-service="website">
+
+<div class="service-card-number">
+    01 / WEB
+</div>
+
+<div class="service-card-icon">
+    ↗
+</div>
+
+<h3>
+    Websites
+</h3>
+
+<p>
+    Websites institucionais, comerciais,
+    corporativos e experiências digitais
+    desenvolvidas à medida da marca.
+</p>
+
+<div class="service-tags">
+
+<span>Corporate</span>
+<span>Business</span>
+<span>Portfolio</span>
+<span>Responsive</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="landing">
+
+<div class="service-card-number">
+    02 / CONVERSION
+</div>
+
+<div class="service-card-icon">
+    ◎
+</div>
+
+<h3>
+    Landing Pages
+</h3>
+
+<p>
+    Páginas orientadas para uma ação:
+    vender, captar, reservar ou validar
+    uma oferta.
+</p>
+
+<div class="service-tags">
+
+<span>Lead Gen</span>
+<span>Funnels</span>
+<span>Campaigns</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="ecommerce">
+
+<div class="service-card-number">
+    03 / COMMERCE
+</div>
+
+<div class="service-card-icon">
+    ◇
+</div>
+
+<h3>
+    E-commerce
+</h3>
+
+<p>
+    Lojas online com experiência de compra,
+    catálogo, checkout e estrutura preparada
+    para crescimento.
+</p>
+
+<div class="service-tags">
+
+<span>Store</span>
+<span>Checkout</span>
+<span>Payments</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="ai">
+
+<div class="service-card-number">
+    04 / INTELLIGENCE
+</div>
+
+<div class="service-card-icon">
+    AI
+</div>
+
+<h3>
+    AI & Chatbots
+</h3>
+
+<p>
+    Atendimento inteligente para websites,
+    WhatsApp e outros canais.
+</p>
+
+<div class="service-tags">
+
+<span>AI</span>
+<span>WhatsApp</span>
+<span>Agents</span>
+<span>24/7</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="booking">
+
+<div class="service-card-number">
+    05 / BOOKING
+</div>
+
+<div class="service-card-icon">
+    ◷
+</div>
+
+<h3>
+    Booking
+</h3>
+
+<p>
+    Sistemas de marcação adaptados ao negócio,
+    desde profissionais independentes a equipas.
+</p>
+
+<div class="service-tags">
+
+<span>Calendar</span>
+<span>Booking</span>
+<span>Clients</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="automation">
+
+<div class="service-card-number">
+    06 / AUTOMATION
+</div>
+
+<div class="service-card-icon">
+    ⚡
+</div>
+
+<h3>
+    Automação
+</h3>
+
+<p>
+    Workflows, notificações, CRM e integrações
+    para reduzir tarefas manuais.
+</p>
+
+<div class="service-tags">
+
+<span>Workflows</span>
+<span>CRM</span>
+<span>APIs</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="dashboard">
+
+<div class="service-card-number">
+    07 / DATA
+</div>
+
+<div class="service-card-icon">
+    ◌
+</div>
+
+<h3>
+    Dashboards
+</h3>
+
+<p>
+    Interfaces para acompanhar operações,
+    indicadores, equipas e clientes.
+</p>
+
+<div class="service-tags">
+
+<span>Analytics</span>
+<span>KPI</span>
+<span>Data</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="custom">
+
+<div class="service-card-number">
+    08 / SOFTWARE
+</div>
+
+<div class="service-card-icon">
+    +
+</div>
+
+<h3>
+    Software à medida
+</h3>
+
+<p>
+    Plataformas e ferramentas internas
+    construídas especificamente para o
+    processo da empresa.
+</p>
+
+<div class="service-tags">
+
+<span>Web Apps</span>
+<span>SaaS</span>
+<span>Systems</span>
+
+</div>
+
+</div>
+
+
+
+<div class="service-card"
+data-service="integration">
+
+<div class="service-card-number">
+    09 / CONNECT
+</div>
+
+<div class="service-card-icon">
+    ⛓
+</div>
+
+<h3>
+    Integrações
+</h3>
+
+<p>
+    Fazemos diferentes ferramentas comunicarem
+    entre si para criar uma operação conectada.
+</p>
+
+<div class="service-tags">
+
+<span>API</span>
+<span>CRM</span>
+<span>Payments</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PORTFOLIO
+========================================================= -->
+
+<section class="section portfolio" id="portfolio">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    03 / Selected work
+</div>
+
+<h2 class="section-heading">
+
+O que podemos
+construir.
+
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Uma seleção de conceitos e soluções que representam
+o tipo de experiência digital que a Schedulos pode
+desenvolver.
+
+</p>
+
+</div>
+
+
+
+<div class="portfolio-grid reveal">
+
+
+<!-- PROJECT 1 -->
+
+<div class="project" data-project="clinic">
+
+<div class="project-visual">
+
+<div class="project-ui">
+
+<div class="ui-top">
+
+<span>
+    SCHEDULOS AI
+</span>
+
+<span>
+    CLINIC
+</span>
+
+</div>
+
+<div class="ui-main-title">
+    Intelligent
+    Patient Assistant
+</div>
+
+<div class="ui-lines">
+
+<div class="ui-line"></div>
+<div class="ui-line"></div>
+<div class="ui-line"></div>
+
+</div>
+
+<div class="ui-chart">
+
+<svg viewBox="0 0 500 120"
+preserveAspectRatio="none">
+
+<polyline
+points="0,100 50,90 100,95 150,65 200,72 250,48 300,60 350,30 400,38 450,20 500,10"
+fill="none"
+stroke="#b9f34b"
+stroke-width="3">
+</polyline>
+
+</svg>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="project-overlay">
+
+<div class="project-info">
+
+<small>
+    AI / Healthcare
+</small>
+
+<h3>
+    Clinic Assistant
+</h3>
+
+</div>
+
+<div class="project-link">
+    ↗
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- PROJECT 2 -->
+
+<div class="project" data-project="beauty">
+
+<div class="project-visual">
+
+<div class="project-ui"
+style="background:#e6e6df;color:#111;">
+
+<div class="ui-top"
+style="border-color:#ccc;color:#777;">
+
+<span>
+    SCHEDULOS BOOKING
+</span>
+
+<span>
+    BEAUTY
+</span>
+
+</div>
+
+<div class="ui-main-title">
+    Your next
+    appointment.
+</div>
+
+<div style="
+margin-top:30px;
+padding:16px;
+background:white;
+border-radius:10px;
+color:#111;
+font-size:10px;
+">
+
+<strong>
+    Tuesday · 14:30
+</strong>
+
+<br><br>
+
+Hair styling · 60 min
+
+</div>
+
+</div>
+
+</div>
+
+<div class="project-overlay">
+
+<div class="project-info">
+
+<small>
+    Booking / Beauty
+</small>
+
+<h3>
+    Beauty Booking
+</h3>
+
+</div>
+
+<div class="project-link">
+    ↗
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- PROJECT 3 -->
+
+<div class="project" data-project="ecommerce">
+
+<div class="project-visual">
+
+<div class="project-ui"
+style="background:#dce7ff;color:#111;">
+
+<div class="ui-top"
+style="border-color:#bbc8e5;color:#555;">
+
+<span>
+    DIGITAL COMMERCE
+</span>
+
+<span>
+    STORE
+</span>
+
+</div>
+
+<div class="ui-main-title">
+    Premium
+    e-commerce.
+</div>
+
+<div style="
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+">
+
+<div style="
+height:70px;
+background:white;
+border-radius:8px;
+"></div>
+
+<div style="
+height:70px;
+background:white;
+border-radius:8px;
+"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="project-overlay">
+
+<div class="project-info">
+
+<small>
+    E-commerce
+</small>
+
+<h3>
+    Digital Store
+</h3>
+
+</div>
+
+<div class="project-link">
+    ↗
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- PROJECT 4 -->
+
+<div class="project" data-project="dashboard">
+
+<div class="project-visual">
+
+<div class="project-ui">
+
+<div class="ui-top">
+
+<span>
+    BUSINESS INTELLIGENCE
+</span>
+
+<span>
+    DATA
+</span>
+
+</div>
+
+<div class="ui-main-title">
+    Business
+    Dashboard.
+</div>
+
+<div style="
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:7px;
+">
+
+<div style="
+padding:12px;
+background:#1b1b1b;
+border-radius:8px;
+font-size:8px;
+color:#777;
+">
+REVENUE
+<br>
+<strong style="color:white;font-size:16px;">
+€42K
+</strong>
+</div>
+
+<div style="
+padding:12px;
+background:#1b1b1b;
+border-radius:8px;
+font-size:8px;
+color:#777;
+">
+LEADS
+<br>
+<strong style="color:#b9f34b;font-size:16px;">
+284
+</strong>
+</div>
+
+<div style="
+padding:12px;
+background:#1b1b1b;
+border-radius:8px;
+font-size:8px;
+color:#777;
+">
+GROWTH
+<br>
+<strong style="color:#b9f34b;font-size:16px;">
++31%
+</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="project-overlay">
+
+<div class="project-info">
+
+<small>
+    Dashboards / Data
+</small>
+
+<h3>
+    Business Intelligence
+</h3>
+
+</div>
+
+<div class="project-link">
+    ↗
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CASE STUDIES
+========================================================= -->
+
+<section class="section cases">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    04 / Use cases
+</div>
+
+<h2 class="section-heading">
+    Problemas reais.
+    Soluções digitais.
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Em vez de vender funcionalidades isoladas,
+pensamos em problemas concretos que podemos
+resolver através de tecnologia.
+
+</p>
+
+</div>
+
+
+<div class="case-list reveal">
+
+
+<div class="case">
+
+<div class="case-row">
+
+<div class="case-number">
+    01
+</div>
+
+<div>
+
+<div class="case-type">
+    Clinic / AI
+</div>
+
+<h3>
+    “Recebemos demasiadas perguntas repetitivas.”
+</h3>
+
+</div>
+
+<div class="case-description">
+    AI assistant para responder perguntas frequentes,
+    qualificar contactos e encaminhar pedidos.
+</div>
+
+<div class="case-result">
+
+<strong>
+    24/7
+</strong>
+
+<span>
+    disponibilidade
+</span>
+
+</div>
+
+<div class="case-toggle">
+    +
+</div>
+
+</div>
+
+<div class="case-detail">
+<p>
+    Na prática: um assistente de AI responde às perguntas
+    mais comuns, filtra pedidos e só escala para a equipa
+    aquilo que exige mesmo intervenção humana.
+</p>
+</div>
+
+</div>
+
+
+
+<div class="case">
+
+<div class="case-row">
+
+<div class="case-number">
+    02
+</div>
+
+<div>
+
+<div class="case-type">
+    Beauty / Booking
+</div>
+
+<h3>
+    “Perdemos marcações porque não respondemos a tempo.”
+</h3>
+
+</div>
+
+<div class="case-description">
+    Website + booking + automação para transformar
+    visitas em marcações sem intervenção constante.
+</div>
+
+<div class="case-result">
+
+<strong>
+    24/7
+</strong>
+
+<span>
+    booking
+</span>
+
+</div>
+
+<div class="case-toggle">
+    +
+</div>
+
+</div>
+
+<div class="case-detail">
+<p>
+    Na prática: o website liga-se diretamente à agenda,
+    por isso a marcação acontece no momento — mesmo fora
+    do horário de atendimento.
+</p>
+</div>
+
+</div>
+
+
+
+<div class="case">
+
+<div class="case-row">
+
+<div class="case-number">
+    03
+</div>
+
+<div>
+
+<div class="case-type">
+    Services / Automation
+</div>
+
+<h3>
+    “A equipa perde horas em tarefas manuais.”
+</h3>
+
+</div>
+
+<div class="case-description">
+    Mapeamento de processos e criação de workflows
+    automáticos entre as ferramentas existentes.
+</div>
+
+<div class="case-result">
+
+<strong>
+    ↓
+</strong>
+
+<span>
+    trabalho manual
+</span>
+
+</div>
+
+<div class="case-toggle">
+    +
+</div>
+
+</div>
+
+<div class="case-detail">
+<p>
+    Na prática: mapeamos o processo passo a passo e
+    ligamos as ferramentas já usadas pela equipa, para
+    que a informação circule sem cópias manuais.
+</p>
+</div>
+
+</div>
+
+
+
+<div class="case">
+
+<div class="case-row">
+
+<div class="case-number">
+    04
+</div>
+
+<div>
+
+<div class="case-type">
+    Business / Software
+</div>
+
+<h3>
+    “Nenhuma ferramenta faz exatamente aquilo que precisamos.”
+</h3>
+
+</div>
+
+<div class="case-description">
+    Desenvolvimento de uma aplicação própria
+    adaptada ao processo específico da empresa.
+</div>
+
+<div class="case-result">
+
+<strong>
+    100%
+</strong>
+
+<span>
+    personalizado
+</span>
+
+</div>
+
+<div class="case-toggle">
+    +
+</div>
+
+</div>
+
+<div class="case-detail">
+<p>
+    Na prática: em vez de forçar o negócio a adaptar-se
+    a uma ferramenta genérica, construímos uma aplicação
+    à volta do processo real da empresa.
+</p>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     INDUSTRIES
+========================================================= -->
+
+<section class="section industries" id="industries">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    05 / Industries
+</div>
+
+<h2 class="section-heading">
+    Uma tecnologia.
+    Diferentes negócios.
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Temos especializações onde certos problemas
+se repetem, mas a tecnologia Schedulos pode
+ser aplicada a praticamente qualquer operação.
+
+</p>
+
+</div>
+
+
+<div class="industry-grid reveal">
+
+
+<div class="industry">
+
+<div class="industry-num">
+    01
+</div>
+
+<div class="industry-icon">
+    ◉
+</div>
+
+<h3>
+    Clínicas
+</h3>
+
+<p>
+    AI, atendimento, leads e agendamento.
+</p>
+
+</div>
+
+
+<div class="industry">
+
+<div class="industry-num">
+    02
+</div>
+
+<div class="industry-icon">
+    ✦
+</div>
+
+<h3>
+    Beauty
+</h3>
+
+<p>
+    Websites, booking e automação.
+</p>
+
+</div>
+
+
+<div class="industry">
+
+<div class="industry-num">
+    03
+</div>
+
+<div class="industry-icon">
+    ◇
+</div>
+
+<h3>
+    Restauração
+</h3>
+
+<p>
+    Reservas, presença digital e contacto.
+</p>
+
+</div>
+
+
+<div class="industry">
+
+<div class="industry-num">
+    04
+</div>
+
+<div class="industry-icon">
+    ◇
+</div>
+
+<h3>
+    Automotive
+</h3>
+
+<p>
+    Leads, pedidos de orçamento e CRM.
+</p>
+
+</div>
+
+
+<div class="industry">
+
+<div class="industry-num">
+    05
+</div>
+
+<div class="industry-icon">
+    +
+</div>
+
+<h3>
+    Serviços
+</h3>
+
+<p>
+    Websites, leads, CRM e automação.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRICING
+========================================================= -->
+
+<section class="section pricing" id="pricing">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    06 / Investment
+</div>
+
+<h2 class="section-heading">
+    Começar simples.
+    Evoluir quando fizer sentido.
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Todos os valores apresentados são preços
+<strong style="color:white;">
+    desde
+</strong>.
+
+O valor final depende da dimensão, conteúdo,
+integrações e complexidade do projeto.
+
+</p>
+
+</div>
+
+
+
+<div class="pricing-grid reveal">
+
+
+<!-- LAUNCH -->
+
+<div class="price-card">
+
+<div class="price-eyebrow">
+    Web / Starter
+</div>
+
+<h3>
+    Launch
+</h3>
+
+<p>
+    Uma presença digital profissional para
+    começar a comunicar e captar oportunidades.
+</p>
+
+<div class="price-value">
+    Desde 249€
+</div>
+
+<div class="price-divider"></div>
+
+<ul class="price-list">
+
+<li>
+    Landing page
+</li>
+
+<li>
+    Design personalizado
+</li>
+
+<li>
+    Responsive
+</li>
+
+<li>
+    Formulário / WhatsApp
+</li>
+
+<li>
+    Publicação
+</li>
+
+</ul>
+
+<a href="#contact"
+class="btn btn-light">
+    Começar →
+</a>
+
+</div>
+
+
+
+<!-- BUSINESS -->
+
+<div class="price-card featured">
+
+<div class="price-badge">
+    MAIS PROCURADO
+</div>
+
+<div class="price-eyebrow">
+    Web / Business
+</div>
+
+<h3>
+    Business
+</h3>
+
+<p>
+    Website completo para empresas que
+    querem uma presença digital sólida.
+</p>
+
+<div class="price-value">
+    Desde 549€
+</div>
+
+<div class="price-divider"></div>
+
+<ul class="price-list">
+
+<li>
+    Website multipágina
+</li>
+
+<li>
+    Design personalizado
+</li>
+
+<li>
+    Estrutura comercial
+</li>
+
+<li>
+    SEO técnico base
+</li>
+
+<li>
+    Analytics
+</li>
+
+<li>
+    Integrações essenciais
+</li>
+
+</ul>
+
+<a href="#contact"
+class="btn btn-light">
+    Pedir proposta →
+</a>
+
+</div>
+
+
+
+<!-- GROWTH -->
+
+<div class="price-card">
+
+<div class="price-eyebrow">
+    Web / Growth
+</div>
+
+<h3>
+    Growth
+</h3>
+
+<p>
+    Uma experiência digital mais avançada,
+    pensada para aquisição e conversão.
+</p>
+
+<div class="price-value">
+    Desde 949€
+</div>
+
+<div class="price-divider"></div>
+
+<ul class="price-list">
+
+<li>
+    Website avançado
+</li>
+
+<li>
+    Landing / conversion sections
+</li>
+
+<li>
+    Booking ou leads
+</li>
+
+<li>
+    Automação
+</li>
+
+<li>
+    Analytics
+</li>
+
+<li>
+    Integrações
+</li>
+
+</ul>
+
+<a href="#contact"
+class="btn btn-light">
+    Explorar Growth →
+</a>
+
+</div>
+
+
+
+<!-- CUSTOM -->
+
+<div class="price-card">
+
+<div class="price-eyebrow">
+    Technology
+</div>
+
+<h3>
+    Custom
+</h3>
+
+<p>
+    Sistemas, software, AI e automações
+    desenvolvidos para processos específicos.
+</p>
+
+<div class="price-value">
+    Desde 1.490€
+</div>
+
+<div class="price-divider"></div>
+
+<ul class="price-list">
+
+<li>
+    Web applications
+</li>
+
+<li>
+    AI
+</li>
+
+<li>
+    Dashboards
+</li>
+
+<li>
+    APIs
+</li>
+
+<li>
+    Sistemas internos
+</li>
+
+<li>
+    SaaS
+</li>
+
+</ul>
+
+<a href="#contact"
+class="btn btn-light">
+    Falar sobre projeto →
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="other-pricing reveal">
+
+
+<div class="other-price">
+
+<small>
+    Booking
+</small>
+
+<h4>
+    Agendamento
+</h4>
+
+<strong>
+    Desde 790€
+</strong>
+
+<p>
+    Dependendo do número de serviços,
+    colaboradores e regras.
+</p>
+
+</div>
+
+
+<div class="other-price">
+
+<small>
+    Intelligence
+</small>
+
+<h4>
+    AI / Chatbot
+</h4>
+
+<strong>
+    Desde 690€
+</strong>
+
+<p>
+    Website, WhatsApp e integrações
+    podem alterar o scope.
+</p>
+
+</div>
+
+
+<div class="other-price">
+
+<small>
+    Commerce
+</small>
+
+<h4>
+    E-commerce
+</h4>
+
+<strong>
+    Desde 1.490€
+</strong>
+
+<p>
+    Catálogo, checkout e funcionalidades
+    dependem do projeto.
+</p>
+
+</div>
+
+
+<div class="other-price">
+
+<small>
+    Automation
+</small>
+
+<h4>
+    Automação
+</h4>
+
+<strong>
+    Desde 490€
+</strong>
+
+<p>
+    O investimento depende do número
+    de processos e integrações.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONFIGURATOR
+========================================================= -->
+
+<section class="section configurator" id="configurator">
+
+<div class="container config-grid">
+
+
+<div class="config-copy reveal">
+
+<div class="eyebrow">
+    07 / Solution finder
+</div>
+
+<h2>
+    Não sabe
+    exatamente
+    do que precisa?
+</h2>
+
+<p>
+    Responda a três perguntas e criamos uma
+    recomendação inicial com base no principal
+    objetivo do seu negócio.
+</p>
+
+</div>
+
+
+
+<div class="config-box reveal">
+
+
+<div class="config-step">
+
+<div class="config-label">
+    O que quer melhorar?
+</div>
+
+<div class="option-grid"
+data-group="goal">
+
+<button class="option active"
+data-value="presença digital">
+    Presença digital
+</button>
+
+<button class="option"
+data-value="mais leads">
+    Mais leads
+</button>
+
+<button class="option"
+data-value="mais marcações">
+    Mais marcações
+</button>
+
+<button class="option"
+data-value="automatizar">
+    Automatizar
+</button>
+
+<button class="option"
+data-value="IA">
+    Inteligência artificial
+</button>
+
+<button class="option"
+data-value="software">
+    Software
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="config-step">
+
+<div class="config-label">
+    Em que tipo de negócio?
+</div>
+
+<div class="option-grid"
+data-group="industry">
+
+<button class="option active"
+data-value="Serviços">
+    Serviços
+</button>
+
+<button class="option"
+data-value="Clínica">
+    Clínica
+</button>
+
+<button class="option"
+data-value="Beauty">
+    Beauty
+</button>
+
+<button class="option"
+data-value="Restauração">
+    Restauração
+</button>
+
+<button class="option"
+data-value="Automotive">
+    Automotive
+</button>
+
+<button class="option"
+data-value="Outro">
+    Outro
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="config-step">
+
+<div class="config-label">
+    Qual a dimensão da solução?
+</div>
+
+<div class="option-grid"
+data-group="scale">
+
+<button class="option active"
+data-value="pequena">
+    Quero começar pequeno
+</button>
+
+<button class="option"
+data-value="média">
+    Projeto completo
+</button>
+
+<button class="option"
+data-value="avançada">
+    Sistema à medida
+</button>
+
+</div>
+
+</div>
+
+
+
+<div class="config-result">
+
+<div class="config-result-text">
+
+<small>
+    Recomendação inicial
+</small>
+
+<strong id="recommendation">
+    Website / Landing Page
+</strong>
+
+<span id="recommendationText">
+    Uma solução de presença digital
+    orientada para o seu objetivo.
+</span>
+
+</div>
+
+<a href="#contact"
+class="btn btn-primary">
+    Quero isto →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     AUTOMATION CALCULATOR
+========================================================= -->
+
+<section class="section calculator">
+
+<div class="container calc-grid">
+
+
+<div class="calc-copy reveal">
+
+<div class="eyebrow">
+    08 / Business impact
+</div>
+
+<h2>
+    Quanto vale
+    o seu tempo?
+</h2>
+
+<p>
+    Muitas vezes, a oportunidade não está em
+    trabalhar mais. Está em deixar de fazer
+    manualmente aquilo que uma máquina consegue
+    fazer por si.
+</p>
+
+<p style="
+margin-top:18px;
+font-size:10px;
+color:#999;
+">
+    Simulação indicativa — não representa uma
+    previsão de resultados.
+</p>
+
+</div>
+
+
+
+<div class="calc-box reveal">
+
+
+<div class="range-row">
+
+<div class="range-head">
+
+<span>
+    Tarefas manuais / dia
+</span>
+
+<strong id="tasksValue">
+    20
+</strong>
+
+</div>
+
+<input
+id="tasks"
+type="range"
+min="5"
+max="100"
+value="20"
+>
+
+</div>
+
+
+
+<div class="range-row">
+
+<div class="range-head">
+
+<span>
+    Minutos por tarefa
+</span>
+
+<strong id="minutesValue">
+    10
+</strong>
+
+</div>
+
+<input
+id="minutes"
+type="range"
+min="2"
+max="60"
+value="10"
+>
+
+</div>
+
+
+
+<div class="range-row">
+
+<div class="range-head">
+
+<span>
+    Dias de trabalho / mês
+</span>
+
+<strong id="daysValue">
+    22
+</strong>
+
+</div>
+
+<input
+id="days"
+type="range"
+min="10"
+max="31"
+value="22"
+>
+
+</div>
+
+
+
+<div class="calc-results">
+
+<div class="calc-result">
+
+<small>
+    Horas / mês
+</small>
+
+<strong id="hoursSaved">
+    73h
+</strong>
+
+</div>
+
+
+<div class="calc-result dark-result">
+
+<small>
+    Tempo potencialmente libertado
+</small>
+
+<strong id="hoursText">
+    73 horas
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROCESS
+========================================================= -->
+
+<section class="section process" id="process">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    09 / Method
+</div>
+
+<h2 class="section-heading">
+    Menos complicação.
+    Mais execução.
+</h2>
+
+</div>
+
+<p class="section-copy">
+
+Um processo curto e claro, desde o primeiro
+diagnóstico até à implementação e evolução
+da solução.
+
+</p>
+
+</div>
+
+
+
+<div class="process-grid reveal">
+
+
+<div class="process-item">
+
+<div class="process-num">
+    01 / DISCOVER
+</div>
+
+<h3>
+    Diagnóstico
+</h3>
+
+<p>
+    Percebemos o negócio, problema, clientes
+    e objetivo.
+</p>
+
+</div>
+
+
+<div class="process-item">
+
+<div class="process-num">
+    02 / STRATEGY
+</div>
+
+<h3>
+    Estratégia
+</h3>
+
+<p>
+    Definimos a solução e aquilo que realmente
+    precisa de ser construído.
+</p>
+
+</div>
+
+
+<div class="process-item">
+
+<div class="process-num">
+    03 / DESIGN
+</div>
+
+<h3>
+    Design
+</h3>
+
+<p>
+    Criamos a experiência, arquitetura e
+    identidade digital.
+</p>
+
+</div>
+
+
+<div class="process-item">
+
+<div class="process-num">
+    04 / BUILD
+</div>
+
+<h3>
+    Desenvolvimento
+</h3>
+
+<p>
+    Construímos, integramos e testamos
+    a solução.
+</p>
+
+</div>
+
+
+<div class="process-item">
+
+<div class="process-num">
+    05 / EVOLVE
+</div>
+
+<h3>
+    Evolução
+</h3>
+
+<p>
+    Medimos, aprendemos e identificamos
+    novas oportunidades.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<section class="section">
+
+<div class="container">
+
+
+<div class="section-header reveal">
+
+<div>
+
+<div class="eyebrow">
+    10 / FAQ
+</div>
+
+<h2 class="section-heading">
+    Perguntas
+    frequentes.
+</h2>
+
+</div>
+
+</div>
+
+
+<div class="faq-wrap reveal">
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    01
+</span>
+
+<span class="faq-text">
+    A Schedulos é uma agência de websites?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Não. Websites são apenas uma das nossas áreas.
+    A Schedulos combina estratégia digital, design,
+    desenvolvimento, AI, automação, booking,
+    integrações e software à medida.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    02
+</span>
+
+<span class="faq-text">
+    Trabalham apenas com clínicas?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Não. Clínicas são uma vertical onde podemos
+    desenvolver soluções especializadas, sobretudo
+    em AI, atendimento e agendamento. Trabalhamos
+    transversalmente com diferentes negócios.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    03
+</span>
+
+<span class="faq-text">
+    Os preços são fixos?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Não. Os preços apresentados são sempre valores
+    “desde”. Servem para dar uma referência inicial.
+    O preço final depende do scope, conteúdo,
+    funcionalidades, integrações e complexidade.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    04
+</span>
+
+<span class="faq-text">
+    Posso começar com apenas um serviço?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Sim. Pode começar, por exemplo, com uma landing
+    page e posteriormente acrescentar booking,
+    AI, automação ou software. A infraestrutura
+    pode evoluir com o negócio.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    05
+</span>
+
+<span class="faq-text">
+    Fazem manutenção depois do projeto?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Sim. Dependendo da solução, podemos assegurar
+    manutenção, suporte, evolução e desenvolvimento
+    contínuo.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="faq-item">
+
+<button class="faq-question">
+
+<span class="faq-num">
+    06
+</span>
+
+<span class="faq-text">
+    E se eu não souber exatamente o que preciso?
+</span>
+
+<span class="faq-plus">
+    +
+</span>
+
+</button>
+
+<div class="faq-answer">
+
+<p>
+    Melhor ainda. O primeiro passo pode ser precisamente
+    perceber o problema. A Schedulos ajuda a transformar
+    esse problema numa solução digital concreta.
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="cta">
+
+<div class="container reveal">
+
+<div class="eyebrow"
+style="justify-content:center;">
+    Let's build
+</div>
+
+<h2>
+
+Não precisa de saber
+<span>
+qual é a tecnologia.
+</span>
+
+Só precisa de saber
+o problema.
+
+</h2>
+
+<p>
+
+Conte-nos o que está a tentar melhorar,
+automatizar ou construir. Nós ajudamos
+a encontrar a solução.
+
+</p>
+
+<a href="#contact"
+class="btn btn-light">
+    Falar com a Schedulos →
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section class="section contact" id="contact">
+
+<div class="container contact-grid">
+
+
+<div class="contact-copy reveal">
+
+<div class="eyebrow">
+    11 / Start a project
+</div>
+
+<h2>
+    Vamos construir
+    alguma coisa
+    melhor.
+</h2>
+
+<p>
+    Não precisa de ter o projeto definido.
+    Explique-nos o que pretende melhorar
+    e partimos daí.
+</p>
+
+</div>
+
+
+
+<form class="contact-form reveal"
+id="contactForm">
+
+
+<div class="form-row">
+
+<input
+id="name"
+type="text"
+placeholder="Nome"
+required
+>
+
+<input
+id="company"
+type="text"
+placeholder="Empresa"
+required
+>
+
+</div>
+
+
+<div class="form-row">
+
+<input
+id="email"
+type="email"
+placeholder="Email"
+required
+>
+
+<input
+id="phone"
+type="tel"
+placeholder="Telefone"
+>
+
+</div>
+
+
+<select id="projectType" required>
+
+<option value="">
+    O que pretende desenvolver?
+</option>
+
+<option>
+    Landing Page
+</option>
+
+<option>
+    Website
+</option>
+
+<option>
+    E-commerce
+</option>
+
+<option>
+    AI / Chatbot
+</option>
+
+<option>
+    Booking / Agendamento
+</option>
+
+<option>
+    Automação
+</option>
+
+<option>
+    Dashboard
+</option>
+
+<option>
+    Software à medida
+</option>
+
+<option>
+    Ainda não sei
+</option>
+
+</select>
+
+
+<textarea
+id="message"
+placeholder="Fale-nos brevemente do seu negócio e do que pretende melhorar..."
+></textarea>
+
+
+<button type="submit">
+    Criar briefing no WhatsApp →
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container">
+
+
+<div class="footer-top">
+
+
+<div class="footer-brand">
+
+<a href="#" class="logo">
+
+<div class="logo-mark"
+style="border-color:#333;">
+    <span>S</span>
+</div>
+
+SCHEDULOS
+
+</a>
+
+<p>
+    Estratégia, design e tecnologia para
+    negócios que querem operar melhor,
+    converter mais e crescer.
+</p>
+
+</div>
+
+
+<div class="footer-columns">
+
+
+<div class="footer-col">
+
+<small>
+    Company
+</small>
+
+<a href="#solutions">
+    Soluções
+</a>
+
+<a href="#services">
+    Serviços
+</a>
+
+<a href="#portfolio">
+    Projetos
+</a>
+
+<a href="#process">
+    Processo
+</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<small>
+    Services
+</small>
+
+<a href="#services">
+    Websites
+</a>
+
+<a href="#services">
+    AI
+</a>
+
+<a href="#services">
+    Automation
+</a>
+
+<a href="#services">
+    Booking
+</a>
+
+<a href="#services">
+    Software
+</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<small>
+    Business
+</small>
+
+<a href="#industries">
+    Clínicas
+</a>
+
+<a href="#industries">
+    Beauty
+</a>
+
+<a href="#industries">
+    Automotive
+</a>
+
+<a href="#industries">
+    Serviços
+</a>
+
+</div>
+
+
+<div class="footer-col">
+
+<small>
+    Contact
+</small>
+
+<a href="#contact">
+    Iniciar projeto
+</a>
+
+<a href="#contact">
+    Pedir diagnóstico
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+<span>
+    © 2026 Schedulos
+</span>
+
+<span>
+    Digital infrastructure for modern businesses.
+</span>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     SERVICE MODAL
+========================================================= -->
+
+<div class="modal"
+id="serviceModal">
+
+<div class="modal-box">
+
+<div class="modal-top">
+
+<div>
+
+<div class="eyebrow">
+    Schedulos service
+</div>
+
+<h2 id="modalTitle">
+    Websites
+</h2>
+
+</div>
+
+<button class="close-modal"
+id="closeModal">
+    ×
+</button>
+
+</div>
+
+
+<p class="modal-description"
+id="modalDescription">
+</p>
+
+
+<div class="modal-services"
+id="modalServices">
+</div>
+
+
+<div class="modal-bottom">
+
+<div>
+
+<strong>
+    Quer saber quanto ficaria para o seu negócio?
+</strong>
+
+<p style="
+margin-top:5px;
+font-size:10px;
+color:#777;
+">
+    Todos os projetos são personalizados.
+</p>
+
+</div>
+
+<a href="#contact"
+class="btn btn-primary"
+id="modalCTA">
+    Pedir proposta →
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   NAV SCROLL
+========================================================= */
+
+const nav =
+document.getElementById("nav");
+
+window.addEventListener(
+    "scroll",
+    ()=>{
+        nav.classList.toggle(
+            "scrolled",
+            window.scrollY > 30
+        );
+    }
+);
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+const cursor =
+document.getElementById(
+    "cursorGlow"
+);
+
+document.addEventListener(
+    "mousemove",
+    e=>{
+
+        cursor.style.left =
+            e.clientX+"px";
+
+        cursor.style.top =
+            e.clientY+"px";
+
+    }
+);
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+const observer =
+new IntersectionObserver(
+    entries=>{
+
+        entries.forEach(
+            entry=>{
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    entry.target
+                    .classList
+                    .add("visible");
+
+                }
+
+            }
+        );
+
+    },
+    {
+        threshold:.08
+    }
+);
+
+
+document
+.querySelectorAll(".reveal")
+.forEach(
+    el=>observer.observe(el)
+);
+
+
+/* =========================================================
+   MEGA MENU
+========================================================= */
+
+const servicesTrigger =
+document.getElementById(
+    "servicesTrigger"
+);
+
+const megaMenu =
+document.getElementById(
+    "megaMenu"
+);
+
+servicesTrigger.addEventListener(
+    "click",
+    e=>{
+
+        e.stopPropagation();
+
+        megaMenu.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+document.addEventListener(
+    "click",
+    e=>{
+
+        if(
+            !megaMenu.contains(e.target) &&
+            e.target !== servicesTrigger
+        ){
+
+            megaMenu.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SERVICE DATA
+========================================================= */
+
+const services = {
+
+    website:{
+        title:"Websites",
+
+        description:
+        "Criamos websites que funcionam como uma verdadeira infraestrutura comercial para a empresa — e não apenas como um cartão de visita digital.",
+
+        items:[
+            ["Corporate websites","Estrutura institucional e empresarial."],
+            ["Business websites","Websites orientados para aquisição."],
+            ["Premium websites","Experiências digitais mais personalizadas."],
+            ["Web applications","Interfaces e plataformas web."]
+        ]
+    },
+
+    landing:{
+        title:"Landing Pages",
+
+        description:
+        "Landing pages focadas numa única ação: captar, vender, reservar ou validar uma oferta.",
+
+        items:[
+            ["Lead generation","Páginas focadas na captação."],
+            ["Campaign pages","Landing pages para campanhas."],
+            ["Product pages","Apresentação de produtos ou serviços."],
+            ["Conversion","Estrutura orientada para ação."]
+        ]
+    },
+
+    ecommerce:{
+        title:"E-commerce",
+
+        description:
+        "Criamos lojas online com uma experiência de compra simples, rápida e preparada para crescer.",
+
+        items:[
+            ["Online store","Catálogo e experiência de compra."],
+            ["Checkout","Fluxo de compra otimizado."],
+            ["Payments","Integração de pagamentos."],
+            ["Commerce automation","Processos comerciais automatizados."]
+        ]
+    },
+
+    ai:{
+        title:"AI & Chatbots",
+
+        description:
+        "Assistentes digitais capazes de responder, qualificar, encaminhar e automatizar parte da comunicação com clientes.",
+
+        items:[
+            ["Website AI","Assistente integrado no website."],
+            ["WhatsApp AI","Atendimento através de WhatsApp."],
+            ["Lead qualification","Identificação de potenciais clientes."],
+            ["AI agents","Agentes especializados em processos."]
+        ]
+    },
+
+    booking:{
+        title:"Booking & Agendamento",
+
+        description:
+        "Sistemas de agendamento desenhados em função dos serviços, colaboradores e regras específicas do negócio.",
+
+        items:[
+            ["Online booking","Clientes marcam diretamente."],
+            ["Calendar","Gestão de disponibilidade."],
+            ["Client management","Organização de clientes."],
+            ["Notifications","Automação de comunicação."]
+        ]
+    },
+
+    automation:{
+        title:"Automação",
+
+        description:
+        "Ligamos ferramentas e processos para reduzir trabalho manual e criar operações mais eficientes.",
+
+        items:[
+            ["Workflows","Processos automáticos."],
+            ["CRM automation","Automação comercial."],
+            ["Notifications","Comunicação automática."],
+            ["Integrations","Ferramentas a comunicar entre si."]
+        ]
+    },
+
+    dashboard:{
+        title:"Dashboards",
+
+        description:
+        "Transformamos dados dispersos em interfaces simples para acompanhar aquilo que realmente importa.",
+
+        items:[
+            ["KPI dashboards","Indicadores essenciais."],
+            ["Business intelligence","Visão operacional."],
+            ["Team dashboards","Performance e produtividade."],
+            ["Custom analytics","Métricas específicas."]
+        ]
+    },
+
+    custom:{
+        title:"Software à medida",
+
+        description:
+        "Quando as ferramentas existentes não resolvem o problema, desenvolvemos uma solução própria.",
+
+        items:[
+            ["Internal systems","Ferramentas para equipas."],
+            ["Web apps","Aplicações web."],
+            ["SaaS","Produtos digitais escaláveis."],
+            ["Custom platforms","Plataformas completas."]
+        ]
+    },
+
+    integration:{
+        title:"Integrações",
+
+        description:
+        "Criamos ligações entre sistemas para que informação e processos possam circular automaticamente.",
+
+        items:[
+            ["APIs","Ligação entre sistemas."],
+            ["CRM","Sincronização de clientes."],
+            ["Payments","Integração de pagamentos."],
+            ["Business tools","Conectamos ferramentas existentes."]
+        ]
+    },
+
+    crm:{
+        title:"CRM & Leads",
+
+        description:
+        "Estruturamos a gestão de potenciais clientes para que nenhuma oportunidade fique esquecida.",
+
+        items:[
+            ["Lead capture","Captação de contactos."],
+            ["Pipeline","Gestão de oportunidades."],
+            ["Follow-up","Automação comercial."],
+            ["Analytics","Medição de performance."]
+        ]
+    }
+
+};
+
+
+/* =========================================================
+   PROJECT / CASE STUDY DATA
+========================================================= */
+
+const projects = {
+
+    clinic:{
+        title:"Clinic Assistant",
+
+        description:
+        "Um assistente de AI que responde a pacientes, qualifica pedidos e liberta a equipa de perguntas repetitivas — disponível a qualquer hora.",
+
+        items:[
+            ["Atendimento 24/7","Responde a perguntas frequentes sem intervenção humana."],
+            ["Qualificação de contactos","Identifica e prioriza quem está mais perto de marcar consulta."],
+            ["Encaminhamento inteligente","Direciona cada pedido para a pessoa ou processo certo."],
+            ["Integração com WhatsApp","Funciona no canal que os pacientes já usam todos os dias."]
+        ]
+    },
+
+    beauty:{
+        title:"Beauty Booking",
+
+        description:
+        "Website e sistema de marcação pensados para negócios de beleza que não podem dar-se ao luxo de perder uma marcação por falta de resposta.",
+
+        items:[
+            ["Agenda em tempo real","Clientes veem disponibilidade e marcam sem troca de mensagens."],
+            ["Lembretes automáticos","Reduz faltas com notificações antes da marcação."],
+            ["Gestão de serviços","Cada profissional e serviço com as suas próprias regras."],
+            ["Tudo integrado","Website e booking a funcionar como uma única experiência."]
+        ]
+    },
+
+    ecommerce:{
+        title:"Digital Store",
+
+        description:
+        "Uma loja online pensada para converter — do catálogo ao checkout — e preparada para acompanhar o crescimento do negócio.",
+
+        items:[
+            ["Catálogo otimizado","Produtos organizados para facilitar a decisão de compra."],
+            ["Checkout simplificado","Menos passos, menos abandono de carrinho."],
+            ["Pagamentos integrados","Suporte para os principais métodos de pagamento."],
+            ["Pronta para crescer","Estrutura preparada para mais produtos e mais tráfego."]
+        ]
+    },
+
+    dashboard:{
+        title:"Business Intelligence",
+
+        description:
+        "Um dashboard que junta receita, leads e crescimento num só lugar, para decisões tomadas com dados e não com intuição.",
+
+        items:[
+            ["Indicadores em tempo real","Receita, leads e crescimento sempre visíveis."],
+            ["Visão por equipa","Cada equipa vê apenas o que precisa de ver."],
+            ["Alertas automáticos","Sinaliza desvios antes de se tornarem problemas."],
+            ["Dados centralizados","Junta informação de várias ferramentas num só lugar."]
+        ]
+    }
+
+};
+
+
+/* =========================================================
+   SERVICE MODAL
+========================================================= */
+
+const modal =
+document.getElementById(
+    "serviceModal"
+);
+
+const modalTitle =
+document.getElementById(
+    "modalTitle"
+);
+
+const modalDescription =
+document.getElementById(
+    "modalDescription"
+);
+
+const modalServices =
+document.getElementById(
+    "modalServices"
+);
+
+const closeModal =
+document.getElementById(
+    "closeModal"
+);
+
+
+function openDetail(data){
+
+    if(!data) return;
+
+    modalTitle.textContent =
+        data.title;
+
+    modalDescription.textContent =
+        data.description;
+
+    modalServices.innerHTML =
+        data.items.map(
+            item=>`
+
+            <div class="modal-service">
+
+                <strong>
+                    ${item[0]}
+                </strong>
+
+                <p>
+                    ${item[1]}
+                </p>
+
+            </div>
+
+            `
+        ).join("");
+
+    modal.classList.add("open");
+
+    document.body.classList.add(
+        "locked"
+    );
+
+}
+
+
+function openService(key){
+
+    openDetail(services[key]);
+
+}
+
+
+function openProjectDetail(key){
+
+    openDetail(projects[key]);
+
+}
+
+
+function closeService(){
+
+    modal.classList.remove(
+        "open"
+    );
+
+    document.body.classList.remove(
+        "locked"
+    );
+
+}
+
+
+document
+.querySelectorAll("[data-service]")
+.forEach(
+    element=>{
+
+        element.addEventListener(
+            "click",
+            e=>{
+
+                e.preventDefault();
+
+                openService(
+                    element.dataset.service
+                );
+
+            }
+        );
+
+    }
+);
+
+
+document
+.querySelectorAll("[data-project]")
+.forEach(
+    element=>{
+
+        element.addEventListener(
+            "click",
+            ()=>{
+
+                openProjectDetail(
+                    element.dataset.project
+                );
+
+            }
+        );
+
+    }
+);
+
+
+closeModal.addEventListener(
+    "click",
+    closeService
+);
+
+
+modal.addEventListener(
+    "click",
+    e=>{
+
+        if(e.target === modal){
+
+            closeService();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key === "Escape"){
+
+            closeService();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CONFIGURATOR
+========================================================= */
+
+let config = {
+
+    goal:"presença digital",
+
+    industry:"Serviços",
+
+    scale:"pequena"
+
+};
+
+
+document
+.querySelectorAll(
+    ".option-grid"
+)
+.forEach(
+    group=>{
+
+        group
+        .querySelectorAll(
+            ".option"
+        )
+        .forEach(
+            option=>{
+
+                option.addEventListener(
+                    "click",
+                    ()=>{
+
+                        group
+                        .querySelectorAll(
+                            ".option"
+                        )
+                        .forEach(
+                            item=>
+                                item.classList
+                                .remove(
+                                    "active"
+                                )
+                        );
+
+                        option.classList
+                            .add("active");
+
+                        config[
+                            group.dataset.group
+                        ] =
+                            option.dataset.value;
+
+                        updateRecommendation();
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+
+function updateRecommendation(){
+
+    let title =
+        "Website / Landing Page";
+
+    let text =
+        "Uma solução de presença digital orientada para o seu objetivo.";
+
+
+    if(
+        config.goal === "mais leads"
+    ){
+
+        title =
+            "Website + Lead Generation";
+
+        text =
+            "Uma experiência digital construída para captar e converter oportunidades.";
+
+    }
+
+
+    if(
+        config.goal === "mais marcações"
+    ){
+
+        title =
+            "Booking + Website";
+
+        text =
+            "Uma experiência digital focada em transformar visitas em marcações.";
+
+    }
+
+
+    if(
+        config.goal === "automatizar"
+    ){
+
+        title =
+            "Automation";
+
+        text =
+            "Mapeamento de processos e criação de workflows automáticos.";
+
+    }
+
+
+    if(
+        config.goal === "IA"
+    ){
+
+        title =
+            "AI / Chatbot";
+
+        text =
+            "Um assistente inteligente adaptado ao processo do seu negócio.";
+
+    }
+
+
+    if(
+        config.goal === "software"
+    ){
+
+        title =
+            "Custom Software";
+
+        text =
+            "Uma aplicação construída especificamente para a sua operação.";
+
+    }
+
+
+    if(
+        config.scale === "avançada"
+    ){
+
+        title =
+            "Custom Digital System";
+
+        text =
+            "Uma solução tecnológica desenvolvida à medida da operação.";
+
+    }
+
+
+    document
+    .getElementById(
+        "recommendation"
+    )
+    .textContent =
+        title;
+
+
+    document
+    .getElementById(
+        "recommendationText"
+    )
+    .textContent =
+        text;
+
+}
+
+
+updateRecommendation();
+
+
+/* =========================================================
+   AUTOMATION CALCULATOR
+========================================================= */
+
+const tasks =
+document.getElementById("tasks");
+
+const minutes =
+document.getElementById("minutes");
+
+const days =
+document.getElementById("days");
+
+
+function calculateTime(){
+
+    const t =
+        Number(tasks.value);
+
+    const m =
+        Number(minutes.value);
+
+    const d =
+        Number(days.value);
+
+
+    const hours =
+        Math.round(
+            (t*m*d)/60
+        );
+
+
+    document
+    .getElementById(
+        "tasksValue"
+    )
+    .textContent =
+        t;
+
+
+    document
+    .getElementById(
+        "minutesValue"
+    )
+    .textContent =
+        m;
+
+
+    document
+    .getElementById(
+        "daysValue"
+    )
+    .textContent =
+        d;
+
+
+    document
+    .getElementById(
+        "hoursSaved"
+    )
+    .textContent =
+        hours+"h";
+
+
+    document
+    .getElementById(
+        "hoursText"
+    )
+    .textContent =
+        hours+" horas";
+
+}
+
+
+[
+    tasks,
+    minutes,
+    days
+].forEach(
+    input=>
+        input.addEventListener(
+            "input",
+            calculateTime
+        )
+);
+
+
+calculateTime();
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document
+.querySelectorAll(
+    ".faq-question"
+)
+.forEach(
+    question=>{
+
+        question.addEventListener(
+            "click",
+            ()=>{
+
+                const item =
+                    question.parentElement;
+
+                const answer =
+                    item.querySelector(
+                        ".faq-answer"
+                    );
+
+                const open =
+                    item.classList
+                        .contains("open");
+
+
+                document
+                .querySelectorAll(
+                    ".faq-item"
+                )
+                .forEach(
+                    faq=>{
+
+                        faq.classList
+                        .remove("open");
+
+                        faq.querySelector(
+                            ".faq-answer"
+                        ).style.maxHeight =
+                            "0px";
+
+                    }
+                );
+
+
+                if(!open){
+
+                    item.classList
+                        .add("open");
+
+                    answer.style.maxHeight =
+                        answer.scrollHeight+"px";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CASE STUDIES (click to expand)
+========================================================= */
+
+document
+.querySelectorAll(".case")
+.forEach(
+    caseItem=>{
+
+        caseItem.addEventListener(
+            "click",
+            ()=>{
+
+                caseItem.classList
+                    .toggle("open");
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CONTACT → WHATSAPP BRIEFING
+========================================================= */
+
+document
+.getElementById(
+    "contactForm"
+)
+.addEventListener(
+    "submit",
+    e=>{
+
+        e.preventDefault();
+
+
+        const name =
+            document.getElementById(
+                "name"
+            ).value;
+
+        const company =
+            document.getElementById(
+                "company"
+            ).value;
+
+        const email =
+            document.getElementById(
+                "email"
+            ).value;
+
+        const phone =
+            document.getElementById(
+                "phone"
+            ).value;
+
+        const project =
+            document.getElementById(
+                "projectType"
+            ).value;
+
+        const message =
+            document.getElementById(
+                "message"
+            ).value;
+
+
+        const briefing = `
+
+Olá! Gostaria de falar com a Schedulos.
+
+━━ BRIEFING ━━
+
+Nome:
+${name}
+
+Empresa:
+${company}
+
+Email:
+${email}
+
+Telefone:
+${phone}
+
+Projeto:
+${project}
+
+Mensagem:
+${message}
+
+━━ RECOMENDAÇÃO ━━
+
+Objetivo:
+${config.goal}
+
+Negócio:
+${config.industry}
+
+Dimensão:
+${config.scale}
+
+Recomendação inicial:
+${document.getElementById("recommendation").textContent}
+
+`;
+
+
+        /*
+        ======================================================
+        Número de WhatsApp da Schedulos
+        ======================================================
+        */
+
+        const whatsappNumber =
+            "351938317522";
+
+
+        window.open(
+
+            "https://wa.me/"
+            +
+            whatsappNumber
+            +
+            "?text="
+            +
+            encodeURIComponent(
+                briefing
+            ),
+
+            "_blank"
+
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+const mobileMenuButton =
+document.getElementById(
+    "mobileMenu"
+);
+
+const mobileNav =
+document.getElementById(
+    "mobileNav"
+);
+
+const closeMobileNavButton =
+document.getElementById(
+    "closeMobileNav"
+);
+
+
+function openMobileNav(){
+
+    mobileNav.classList.add(
+        "open"
+    );
+
+    document.body.classList.add(
+        "locked"
+    );
+
+}
+
+
+function closeMobileNav(){
+
+    mobileNav.classList.remove(
+        "open"
+    );
+
+    document.body.classList.remove(
+        "locked"
+    );
+
+}
+
+
+mobileMenuButton.addEventListener(
+    "click",
+    openMobileNav
+);
+
+
+closeMobileNavButton.addEventListener(
+    "click",
+    closeMobileNav
+);
+
+
+document
+.querySelectorAll(
+    ".mobile-nav-link, .mobile-nav-cta"
+)
+.forEach(
+    link=>
+        link.addEventListener(
+            "click",
+            closeMobileNav
+        )
+);
+
+
+document.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key === "Escape"){
+
+            closeMobileNav();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
