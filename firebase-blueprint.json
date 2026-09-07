@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "Briefing": {
+      "title": "Briefing",
+      "description": "A contact request from a potential client",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "company": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "projectType": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "recommendationTitle": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "createdAt": {
+          "type": "timestamp"
+        }
+      },
+      "required": ["name", "email", "createdAt"]
+    }
+  },
+  "firestore": {
+    "briefings/{briefingId}": {
+      "schema": { "$ref": "#/entities/Briefing" },
+      "description": "Stores submitted briefings"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. Primitives
+    function incoming() { return request.resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // 3. Validation Blueprints
+    function isValidBriefing(data) {
+      return data.keys().hasAll(['name', 'email', 'createdAt']) && 
+             data.keys().size() <= 8 &&
+             data.name is string && data.name.size() <= 100 &&
+             data.email is string && data.email.size() <= 200 &&
+             ( !('company' in data.keys()) || (data.company is string && data.company.size() <= 100) ) &&
+             ( !('phone' in data.keys()) || (data.phone is string && data.phone.size() <= 50) ) &&
+             ( !('projectType' in data.keys()) || (data.projectType is string && data.projectType.size() <= 100) ) &&
+             ( !('message' in data.keys()) || (data.message is string && data.message.size() <= 2000) ) &&
+             ( !('recommendationTitle' in data.keys()) || (data.recommendationTitle is string && data.recommendationTitle.size() <= 100) ) &&
+             data.createdAt == request.time;
+    }
+
+    // 4. Endpoints
+    match /briefings/{briefingId} {
+      allow create: if isValidId(briefingId) && isValidBriefing(incoming());
+    }
+  }
+}
