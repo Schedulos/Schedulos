@@ -1,6 +1,0 @@
-{
-  "name": "Schedulos — Smart Business Ecosystem",
-  "description": "Desenhamos o ecossistema digital que atende, vende e agenda por si, de forma contínua e mensurável.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
